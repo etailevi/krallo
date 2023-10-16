@@ -25,23 +25,18 @@ export function Popover({ isShown, type, parentRect, onClose, addedProps }) {
   const [isListening, setIsListening] = useCloseOnOutsideClick(onClosePopover, 'popover', 'add-to-card-btns', '.popover-backdrop')
 
   useEffect(() => {
-    function handleBodyOverflow() {
-      document.body.style.overflow = isShown ? 'hidden' : 'auto'
-    }
-
     if (isShown) {
-      handleBodyOverflow()
       setIsListening(true)
-    }
-
-    return () => {
-      handleBodyOverflow()
+      // window.document.body.overflow = 'hidden'
+    } else {
+      setIsListening(false)
+      // window.document.body.overflow = 'auto'
     }
   }, [isShown])
 
   const popoverRef = useRef()
 
-  if (!isShown || !parentRect || Object.keys(parentRect).length > 0) return <div></div>
+  if (!isShown || !parentRect || Object.keys(parentRect).length > 0) return null
 
   function onClosePopover() {
     setIsListening(false)
@@ -58,7 +53,7 @@ export function Popover({ isShown, type, parentRect, onClose, addedProps }) {
   let positionY = parentRect.bottom
 
   // Check viewport overflow on the X axis
-  if (window.innerWidth - 400 < parentRect.left) {
+  if (window.innerWidth - 340 < parentRect.left) {
     isJustifyRight = true
     if (window.innerWidth < parentRect.right) {
       isJustifyRight = false
@@ -90,7 +85,7 @@ export function Popover({ isShown, type, parentRect, onClose, addedProps }) {
   popoverStyles.left = positionX - xDiff
 
   const scrollTop =
-    window.pageYOffset !== undefined
+    (window.pageYOffset !== undefined)
       ? window.pageYOffset
       : (document.documentElement || document.body.parentNode || document.body).scrollTop
   if (isAlignCenter) {
@@ -108,6 +103,7 @@ export function Popover({ isShown, type, parentRect, onClose, addedProps }) {
     let popoverWidth = 0
     if (popoverRef.current) popoverWidth = popoverRef.current.getBoundingClientRect().width
     popoverStyles.left = window.innerWidth - popoverWidth - xDiff - (window.innerWidth - parentRect.right)
+   if(popoverStyles.left < 0) popoverStyles.left = 5
   }
 
   if (isPositionRight) {

@@ -35,7 +35,7 @@ The technology stack we used was ***MERN*** - MongoDB, Express, React, Node.js.
 The app uses ***webSockets*** to update the board in real-time.
 The API calls to the backend are done with the REST API method , and we used middlewares to authenticate and authorize actions.
 
-We have used many third-side libraries and sources for many goals, such as Open-AI, Unsplash, D&D, Date picker (react-date-range) and more.
+We have used many third-side libraries and sources for many goals, such as Open-AI, Google-OAuth, Unsplash, D&D, Date picker (react-date-range) and more.
 The layout and pixel-perfect were made with Sass (functions, mixins, variables). 
 
 ## Getting started
